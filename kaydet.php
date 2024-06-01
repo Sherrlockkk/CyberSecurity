@@ -1,15 +1,19 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect POST data
+    // POST verilerini al
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Process the data (e.g., save to a file, database, etc.)
-    // Here we will just echo the data for demonstration
+    // Verileri işleme (örneğin, dosyaya kaydetme, veritabanına ekleme, vb.)
+    // Burada sadece verileri ekrana yazdıracağız
     echo "Email: " . htmlspecialchars($email) . "<br>";
     echo "Password: " . htmlspecialchars($password) . "<br>";
 } else {
-    // If the request method is not POST, respond with 405 Method Not Allowed
+    // Eğer istek yöntemi POST değilse, 405 Method Not Allowed yanıtı ver
     http_response_code(405);
     echo "405 Not Allowed";
 }
