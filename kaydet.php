@@ -1,28 +1,16 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // POST verilerini al
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Collect POST data
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Veritabanı bağlantısı
-    $con = mysqli_connect("localhost", "root", "", "test");
-    if (!$con) {
-        die("Veritabanı bağlantısı başarısız: " . mysqli_connect_error());
-    }
-
-    // Veritabanına veri eklemek için SQL sorgusu
-    $sql = "INSERT INTO credentials (email, password) VALUES (?, ?)";
-    $stmt = mysqli_prepare($con, $sql);
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ss", $email, $password);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        echo "Insert successful";
-    } else {
-        echo "SQL hatası: " . mysqli_error($con);
-    }
-
-    // Veritabanı bağlantısını kapat
-    mysqli_close($con);
+    // Process the data (e.g., save to a file, database, etc.)
+    // Here we will just echo the data for demonstration
+    echo "Email: " . htmlspecialchars($email) . "<br>";
+    echo "Password: " . htmlspecialchars($password) . "<br>";
+} else {
+    // If the request method is not POST, respond with 405 Method Not Allowed
+    http_response_code(405);
+    echo "405 Not Allowed";
 }
 ?>
