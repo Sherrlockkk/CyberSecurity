@@ -12,6 +12,10 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
 
+@app.route('/')
+def index():
+    return "Hello, this is your Flask app!"
+
 @app.route('/api/save', methods=['POST'])
 def save_user():
     data = request.get_json()
@@ -22,4 +26,5 @@ def save_user():
 
 if __name__ == '__main__':
     db.create_all()
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
