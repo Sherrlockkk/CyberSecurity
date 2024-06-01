@@ -18,11 +18,15 @@ def index():
 
 @app.route('/api/save', methods=['POST'])
 def save_user():
-    data = request.get_json()
-    new_user = User(email=data['email'], password=data['password'])
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify({'success': True}), 201
+    try:
+        data = request.get_json()
+        new_user = User(email=data['email'], password=data['password'])
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify({'success': True}), 201
+    except Exception as e:
+        app.logger.error(f"Error saving data: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 if __name__ == '__main__':
     db.create_all()
