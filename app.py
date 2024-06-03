@@ -14,10 +14,6 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
 
-@app.route('/')
-def index():
-    return "Hello, this is your Flask app!"
-
 @app.route('/api/save', methods=['POST'])
 def save_user():
     try:
